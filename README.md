@@ -13,6 +13,6 @@ python-bible:
 Using the tool python-bible, https://github.com/bengjerstad/python-bible, I extracted the data from data.pt into 2 json files. 
 
 biblegatewayPyAPI:
-Using the tool biblegatewayPyAPI, https://github.com/bengjerstad/biblegatewayPyAPI, I am going to extract the ESV bible from Biblegateway.
+Using the tool biblegatewayPyAPI, https://github.com/bengjerstad/biblegatewayPyAPI, I was able to extract the ESV bible from Biblegateway. Due to the copywrite on the ESV bible, I won't be able to post the databse file that I created here. 
 
 
