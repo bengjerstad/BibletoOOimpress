@@ -19,16 +19,25 @@ def getaverse(book,chapter,verse):
 def getmultiverses(input):
 	fintext = ''
 	#parse the input
-	
-	#loop for each verse. 
-	atext = getaverse('Genesis','1','5')
-	#combine the txt for loops.
-	fintext = atext
-	
+	multichap = input.split(sep=";")
+	for chap in multichap:
+		splitbookchapverse = chap.split(sep=":")
+		bookchap = splitbookchapverse[0]
+		verses = splitbookchapverse[1]
+		splitbookchap = bookchap.split(sep=" ")
+		book = splitbookchap[0]
+		chap = splitbookchap[1]
+		splitverses = verses.split(sep="-")
+		print(book, chap, verses)
+		for verse in range(int(splitverses[0]),int(splitverses[1])+1):
+			print(book, chap, verse) 
+			atext = getaverse(book, chap, str(verse))
+			fintext = fintext+atext
 	return fintext
 
 
-text = getmultiverses('Genesis 1:1-5')
+text = getmultiverses('Genesis 1:1-5;Genesis 5:1-5')
+print(text)
 
 #pyperclip.copy(text)
 #spam = pyperclip.paste()
