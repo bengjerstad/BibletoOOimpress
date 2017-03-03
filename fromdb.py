@@ -17,7 +17,9 @@ def getaverse(book,chapter,verse):
 		return v+text
 
 def getmultiverses(input):
-	fintext = ''
+	fintext = []
+	fintextindex = 0
+	slidelength = 262
 	#parse the input
 	multichap = input.split(sep=";")
 	for chap in multichap:
@@ -32,16 +34,40 @@ def getmultiverses(input):
 		for verse in range(int(splitverses[0]),int(splitverses[1])+1):
 			print(book, chap, verse) 
 			atext = getaverse(book, chap, str(verse))
-			fintext = fintext+atext
+			#remove newline char.
+			atext = "".join(atext.split('\n'))
+			#splitverese into slides
+			#262 for the first one 290 for the rest
+			try:
+				lenlast = len(fintext[fintextindex])
+			except:
+				lenlast = 0
+			lenthis = len(atext)
+			print(lenlast,lenthis)
+			if lenthis+lenlast > slidelength:
+				#advance to next slide
+				fintext.append(atext)
+				fintextindex = fintextindex + 1
+				slidelength = 290
+				
+			elif (lenlast == 0):
+				fintext.append(atext)
+			else:
+				print(fintextindex)
+				fintext[fintextindex] = fintext[fintextindex]+atext
 	return fintext
 
 
-text = getmultiverses('Genesis 1:1-5;Genesis 5:1-5')
+text = getmultiverses('Genesis 1:1-10')
 print(text)
+
+
 
 #pyperclip.copy(text)
 #spam = pyperclip.paste()
 
 file = open('out.txt', 'w',encoding="UTF-8")
-file.write(text)
+for outtext in text:
+	file.write(outtext)
+	file.write('\n\n')
 file.close()
