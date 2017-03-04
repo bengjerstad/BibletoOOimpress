@@ -34,7 +34,7 @@ def getmultiverses(input):
 		print(book, chap, verses)
 		for verse in range(int(splitverses[0]),int(splitverses[1])+1):
 			print(book, chap, verse) 
-			atext = getaverse(book, chap, str(verse))
+			atext = getaverse(book, str(int(chap)-1), str(verse-1))
 			#remove newline char.
 			atext = " ".join(atext.split('\n'))
 			#splitverese into slides
@@ -66,7 +66,7 @@ def booklookup(bookinput):
 	except:
 		return bookinput
 
-text = getmultiverses('Gen 1:1-10')
+text = getmultiverses('John 3:16-17')
 print(text)
 
 #pyperclip.copy(text)
