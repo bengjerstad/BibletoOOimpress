@@ -19,19 +19,31 @@ def getaverse(book,chapter,verse):
 def getmultiverses(input):
 	fintext = []
 	fintextindex = 0
-	slidelength = 262
+	lastbook = ''
 	#parse the input
 	multichap = input.split(sep=";")
-	for chap in multichap:
+	for splitmultichap in multichap:
+		slidelength = 262
+		
 		#seperate at the ":" to split book and chap from verses
-		splitbookchapverse = chap.split(sep=":")
+		splitbookchapverse = splitmultichap.split(sep=":")
 		bookchap = splitbookchapverse[0]
 		
 		#seperate at the space to split book from the chap
 		splitbookchap = bookchap.split(sep=" ")
-		book = splitbookchap[0]
+		try:
+			#if this errors then we do not have a space beween the ";"
+			book = splitbookchap[1]
+			chap = splitbookchap[2]
+		except:
+			book = splitbookchap[0]
+			chap = splitbookchap[1]
 		book = booklookup(book)
-		chap = splitbookchap[1]
+
+		print(":"+book+":")
+		if book == "":
+			book = lastbook 
+		lastbook = book
 		
 		try:
 			verses = splitbookchapverse[1]
@@ -42,6 +54,7 @@ def getmultiverses(input):
 				data = json.load(data_file)
 			verses = "1-"+str(data[book][int(chap)-1])
 		
+		fintext.append(book+" "+chap+":"+verses+"\n")
 		splitverses = verses.split(sep="-")
 		#print(book, chap, verses)
 		firstverse = int(splitverses[0])
@@ -85,7 +98,7 @@ def booklookup(bookinput):
 	except:
 		return bookinput
 
-text = getmultiverses('John 3')
+text = getmultiverses('gen 1:1-3')
 print(text)
 
 #pyperclip.copy(text)
