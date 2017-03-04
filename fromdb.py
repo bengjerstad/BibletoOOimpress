@@ -61,12 +61,13 @@ def getmultiverses(input):
 def booklookup(bookinput):
 	with open('esvabrs.json') as data_file:    
 		data = json.load(data_file)
+		bookinput = bookinput.replace(".", "")
 	try:
 		return data[bookinput.lower()]
 	except:
 		return bookinput
 
-text = getmultiverses('Gen 1:1-10')
+text = getmultiverses('Gen 1:1-1')
 print(text)
 
 #pyperclip.copy(text)

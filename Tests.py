@@ -8,6 +8,8 @@ class TestStringMethods(unittest.TestCase):
 		self.assertEqual(booklookup('gen'),'Genesis')
 	def test_booklookup_abr_cap(self):
 		self.assertEqual(booklookup('Gen'),'Genesis')
+	def test_booklookup_abr_cap_punc(self):
+		self.assertEqual(booklookup('Gen.'),'Genesis')
 
 		
 if __name__ == '__main__':
