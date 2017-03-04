@@ -28,6 +28,7 @@ def getmultiverses(input):
 		verses = splitbookchapverse[1]
 		splitbookchap = bookchap.split(sep=" ")
 		book = splitbookchap[0]
+		book = booklookup(book)
 		chap = splitbookchap[1]
 		splitverses = verses.split(sep="-")
 		print(book, chap, verses)
@@ -35,7 +36,7 @@ def getmultiverses(input):
 			print(book, chap, verse) 
 			atext = getaverse(book, chap, str(verse))
 			#remove newline char.
-			atext = "".join(atext.split('\n'))
+			atext = " ".join(atext.split('\n'))
 			#splitverese into slides
 			#262 for the first one 290 for the rest
 			try:
@@ -57,11 +58,16 @@ def getmultiverses(input):
 				fintext[fintextindex] = fintext[fintextindex]+atext
 	return fintext
 
+def booklookup(bookinput):
+	with open('esvabrs.json') as data_file:    
+		data = json.load(data_file)
+	try:
+		return data[bookinput.lower()]
+	except:
+		return bookinput
 
-text = getmultiverses('Genesis 1:1-10')
+text = getmultiverses('Gen 1:1-10')
 print(text)
-
-
 
 #pyperclip.copy(text)
 #spam = pyperclip.paste()
