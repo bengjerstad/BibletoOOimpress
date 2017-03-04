@@ -23,20 +23,38 @@ def getmultiverses(input):
 	#parse the input
 	multichap = input.split(sep=";")
 	for chap in multichap:
+		#seperate at the ":" to split book and chap from verses
 		splitbookchapverse = chap.split(sep=":")
 		bookchap = splitbookchapverse[0]
-		verses = splitbookchapverse[1]
+		
+		#seperate at the space to split book from the chap
 		splitbookchap = bookchap.split(sep=" ")
 		book = splitbookchap[0]
 		book = booklookup(book)
 		chap = splitbookchap[1]
+		
+		try:
+			verses = splitbookchapverse[1]
+		except:
+			#handle the case of no verses listed
+			#assume the whole chapter is requested. 
+			with open('esvverse_counts.json') as data_file:    
+				data = json.load(data_file)
+			verses = "1-"+str(data[book][int(chap)-1])
+		
 		splitverses = verses.split(sep="-")
-		print(book, chap, verses)
-		for verse in range(int(splitverses[0]),int(splitverses[1])+1):
-			print(book, chap, verse) 
+		#print(book, chap, verses)
+		firstverse = int(splitverses[0])
+		try:
+			lastverse = int(splitverses[1])+1
+		except:
+			lastverse = firstverse+1
+		for verse in range(firstverse,lastverse):
+			#print(book, chap, verse) 
 			atext = getaverse(book, chap, str(verse))
 			#remove newline char.
 			atext = " ".join(atext.split('\n'))
+
 			#splitverese into slides
 			#262 for the first one 290 for the rest
 			try:
@@ -44,7 +62,7 @@ def getmultiverses(input):
 			except:
 				lenlast = 0
 			lenthis = len(atext)
-			print(lenlast,lenthis)
+			#print(lenlast,lenthis)
 			if lenthis+lenlast > slidelength:
 				#advance to next slide
 				fintext.append(atext)
@@ -54,7 +72,7 @@ def getmultiverses(input):
 			elif (lenlast == 0):
 				fintext.append(atext)
 			else:
-				print(fintextindex)
+				#print(fintextindex)
 				fintext[fintextindex] = fintext[fintextindex]+atext
 	return fintext
 
@@ -67,7 +85,7 @@ def booklookup(bookinput):
 	except:
 		return bookinput
 
-text = getmultiverses('Gen 1:1-1')
+text = getmultiverses('John 3')
 print(text)
 
 #pyperclip.copy(text)
