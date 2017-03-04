@@ -1,5 +1,5 @@
 
-The goal of this project is to:
+#he goal of this project is to:
 1. find or make an offline version of the ESV bible in a database or json file(based on the needs of other goals) 
 2. accept input of book, chapter, verse combinations. 
 3. output text that is formated for Open Office Present 
