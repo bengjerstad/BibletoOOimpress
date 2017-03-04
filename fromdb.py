@@ -11,7 +11,7 @@ c = conn.cursor()
 def getaverse(book,chapter,verse):
 	SUP = str.maketrans("0123456789", u"⁰¹²³⁴⁵⁶⁷⁸⁹")
 	v=verse.translate(SUP)
-	x = c.execute("SELECT * FROM "+book+" WHERE chapter = ? AND verse = ?",(chapter,verse))
+	x = c.execute("SELECT * FROM "+book+" WHERE chapter = ? AND verse = ?",(str(int(chapter)-1),str(int(verse)-1)))
 	for y in x:
 		text = y[2]
 		return v+text
